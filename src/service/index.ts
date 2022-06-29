@@ -1,11 +1,17 @@
 import HJRequest from './request'
-import { BASE_URL, TIME_OUT } from './request/config'
+import { API_BASE_URL, TIME_OUT } from './request/config'
+import localCache from '@/utils/cache'
 
 const hjRequest = new HJRequest({
-  baseURL: BASE_URL,
+  baseURL: API_BASE_URL,
   timeout: TIME_OUT,
-  interceptors: {
+  interceptorHooks: {
     requestInterceptor: (config) => {
+      // 携带token拦截
+      const token = localCache.getCache('token')
+      if (config.headers) {
+        config.headers.Authorization = token
+      }
       return config
     },
     requestInterceptorCatch: (err) => {
