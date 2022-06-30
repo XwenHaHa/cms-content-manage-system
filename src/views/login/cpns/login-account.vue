@@ -46,7 +46,7 @@ export default defineComponent({
             localCache.deleteCache('name')
             localCache.deleteCache('password')
           }
-          // 2.开始登录验证
+          // 2.开始账号登录验证
           store.dispatch('login/accountLoginAction', { name, password })
         }
       })
