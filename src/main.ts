@@ -6,6 +6,7 @@ import './assets/css/index.css'
 import rootApp from './App.vue'
 import router from './router'
 import store from './store'
+import { setupStore } from './store'
 
 const app: App = createApp(rootApp)
 
@@ -13,4 +14,6 @@ const app: App = createApp(rootApp)
 app.use(globalregisterApp)
 app.use(router)
 app.use(store)
+setupStore()
+
 app.mount('#app')
