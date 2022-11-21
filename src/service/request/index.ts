@@ -1,59 +1,72 @@
-import axios, { AxiosInstance } from 'axios'
-
-import type { HJRequestInterceptors, HJRequestConfig } from './type'
+import axios from 'axios'
+import type { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios'
 import { ElLoading } from 'element-plus/lib/components/loading/index'
 import { LoadingInstance } from 'element-plus/lib/components/loading/src/loading'
 
+interface InterceptorHooks {
+  requestInterceptor?: (config: AxiosRequestConfig) => AxiosRequestConfig
+  requestInterceptorCatch?: (error: any) => any
+
+  responseInterceptor?: (response: AxiosResponse) => AxiosResponse
+  responseInterceptorCatch?: (error: any) => any
+}
+
+interface HJRequestConfig extends AxiosRequestConfig {
+  showLoading?: boolean
+  interceptorHooks?: InterceptorHooks
+}
+
+interface HJData<T> {
+  data: T
+  returnCode: string
+  success: boolean
+}
+
 class HJRequest {
+  config: AxiosRequestConfig
   instance: AxiosInstance
-  interceptors?: HJRequestInterceptors
+  interceptorHooks?: InterceptorHooks
   showLoading?: boolean
   loading?: LoadingInstance
 
-  constructor(config: HJRequestConfig) {
+  constructor(options: HJRequestConfig) {
     // 创建axios实例
-    this.instance = axios.create(config)
-    this.showLoading = config.showLoading ?? false
+    this.config = options
+    this.instance = axios.create(options)
+    this.showLoading = options.showLoading ?? false
+    this.interceptorHooks = options.interceptorHooks
+    this.setupInterceptor()
+  }
 
-    // 从config中取出的拦截器是对应的实例的拦截器
+  setupInterceptor(): void {
     this.instance.interceptors.request.use(
-      this.interceptors?.requestInterceptor,
-      this.interceptors?.requestInterceptor
+      this.interceptorHooks?.requestInterceptor,
+      this.interceptorHooks?.requestInterceptorCatch
     )
-
     this.instance.interceptors.response.use(
-      this.interceptors?.responseInterceptor,
-      this.interceptors?.requestInterceptorCatch
+      this.interceptorHooks?.responseInterceptor,
+      this.interceptorHooks?.responseInterceptorCatch
     )
 
-    // 添加所有实例的拦截器
-    this.instance.interceptors.request.use(
-      (res) => {
-        if (this.showLoading) {
-          this.loading = ElLoading.service({
-            lock: true,
-            text: '正在加载中',
-            background: 'rgba(0, 0, 0, 0.7)'
-          })
-        }
-        return res
-      },
-      (err) => {
-        return err
+    this.instance.interceptors.request.use((config) => {
+      if (this.showLoading) {
+        this.loading = ElLoading.service({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        })
       }
-    )
+      return config
+    })
 
     this.instance.interceptors.response.use(
       (res) => {
-        setTimeout(() => {
-          this.loading?.close()
-        }, 2000)
+        this.loading?.close()
         return res
       },
       (err) => {
-        setTimeout(() => {
-          this.loading?.close()
-        }, 2000)
+        this.loading?.close()
         return err
       }
     )
@@ -61,20 +74,15 @@ class HJRequest {
 
   request<T = any>(config: HJRequestConfig): Promise<T> {
     return new Promise((resolve, reject) => {
-      // 1.单个请求对config的处理
-      if (config.interceptors?.requestInterceptor) {
-        config = config.interceptors.requestInterceptor(config)
-      }
-
-      // 2.判断是否需要显示
+      // 判断是否需要显示Loading
       if (config.showLoading) {
         this.showLoading = config.showLoading
       }
 
       this.instance
-        .request<any, T>(config)
+        .request<any, HJData<T>>(config)
         .then((res) => {
-          resolve(res)
+          resolve(res.data)
           this.showLoading = false
         })
         .catch((err) => {

@@ -1,4 +1,3 @@
-const BASE_URL = 'http://123.207.32.32:8000/'
-const TIME_OUT = 10000
+export const API_BASE_URL = process.env.VUE_APP_BASE_URL
 
-export { BASE_URL, TIME_OUT }
+export const TIME_OUT = 10000

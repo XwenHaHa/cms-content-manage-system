@@ -1,14 +1,18 @@
 <template>
-  <div>Login</div>
+  <div class="role">
+    <h2>role</h2>
+  </div>
 </template>
-<script lang="tsx">
+
+<script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
+  name: 'role',
   setup() {
     return {}
   }
 })
 </script>
 
-<style scoped lang="less"></style>
+<style scoped></style>
