@@ -10,6 +10,7 @@ import { IAccount } from '@/service/login/type'
 
 import { ILoginState } from './types'
 import { IRootState } from '../types'
+import { mapMenusToRoutes } from '@/utils/map-menus'
 import router from '@/router'
 
 const loginModule: Module<ILoginState, IRootState> = {
@@ -29,8 +30,17 @@ const loginModule: Module<ILoginState, IRootState> = {
     changeUserInfo(state, userInfo: any) {
       state.userInfo = userInfo
     },
-    changeUserMenus(state, userMenus: any) {
+    changeUserMenus(state, userMenus: any[]) {
       state.userMenus = userMenus
+
+      // userMenus => routes
+      const routes = mapMenusToRoutes(userMenus)
+
+      // 将routes => router.main.children
+      routes.forEach((route) => {
+        // 动态添加二级路由
+        router.addRoute('main', route)
+      })
     }
   },
   actions: {

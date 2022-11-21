@@ -10,10 +10,10 @@ import { setupStore } from './store'
 
 const app: App = createApp(rootApp)
 
+setupStore()
 // 注册element-plus/其他
 app.use(globalregisterApp)
 app.use(router)
 app.use(store)
-setupStore()
 
 app.mount('#app')
