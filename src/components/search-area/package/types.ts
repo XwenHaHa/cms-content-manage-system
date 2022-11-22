@@ -15,3 +15,10 @@ export interface IConfigItem {
   // 日期组件type
   dateType?: string
 }
+
+export interface IConfig {
+  configItems: IConfigItem[]
+  labelWidth?: string
+  colLayout?: any
+  itemLayout?: any
+}

@@ -2,7 +2,7 @@
   <div class="search-area">
     <el-form :label-width="labelWidth">
       <el-row>
-        <template v-for="item in IConfig" :key="item.label">
+        <template v-for="item in configItems" :key="item.label">
           <el-col v-bind="colLayout">
             <el-form-item :label="item.label" :style="itemStyle">
               <template
@@ -42,11 +42,12 @@
 </template>
 <script lang="tsx">
 import { defineComponent, PropType } from 'vue'
-import { IConfigItem } from '../types'
+import { IConfigItem } from './types'
 
 export default defineComponent({
   props: {
-    IConfig: {
+    // 配置项
+    configItems: {
       type: Array as PropType<IConfigItem[]>,
       default: () => []
     },
@@ -54,6 +55,7 @@ export default defineComponent({
       type: String,
       default: '100px'
     },
+    // 每个formItem之间的间距
     itemStyle: {
       type: Object,
       default: () => ({ padding: '5px 30px' })

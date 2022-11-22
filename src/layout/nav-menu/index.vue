@@ -5,7 +5,7 @@
       <span v-if="!collapse" class="title">Vue3-TS-CMS</span>
     </div>
     <el-menu
-      default-active="2"
+      :default-active="defaultValue"
       class="el-menu-vertical"
       :collapse="collapse"
       background-color="#0c2135"
@@ -46,9 +46,9 @@
   </div>
 </template>
 <script lang="tsx">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useStore } from '@/store'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 export default defineComponent({
   name: 'NavMenu',
@@ -59,10 +59,14 @@ export default defineComponent({
     }
   },
   setup() {
+    // store
     const store = useStore()
     const userMenus = store.state.login.userMenus
 
+    // route
     const router = useRouter()
+    const route = useRoute()
+    const path = route.path
 
     const handleMenuItemClick = (item: any) => {
       console.log(item.url)
@@ -70,8 +74,17 @@ export default defineComponent({
         path: item.url ?? 'not/found'
       })
     }
+
+    // 匹配当前点击菜单
+    const defaultValue = ref('')
+    defaultValue.value =
+      userMenus
+        .map((v) => v.children)
+        .flat()
+        .find((v) => v.url === path).id + ''
     return {
       userMenus,
+      defaultValue,
       handleMenuItemClick
     }
   }
@@ -83,6 +96,7 @@ export default defineComponent({
   width: 201px;
   height: 100%;
   background-color: #001529;
+
   .logo {
     display: flex;
     height: 28px;
@@ -90,6 +104,7 @@ export default defineComponent({
     padding: 12px 10px 10px 8px;
     justify-content: flex-start;
     align-items: center;
+
     .img {
       height: 100%;
       margin: 0 10px;
@@ -109,6 +124,7 @@ export default defineComponent({
   // 目录
   .el-submenu {
     background-color: #001529 !important;
+
     // 二级菜单 ( 默认背景 )
     .el-menu-item {
       padding-left: 50px !important;

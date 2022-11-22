@@ -28,8 +28,9 @@
     // 路径解析(类似于Webpack的alias)
     "paths": {
       "@/*": ["src/*"],
-      "components/*":["src/components/*"]
+      "components/*": ["src/components/*"]
     },
+    "noImplicitAny": false,
     // 可以指定项目中可以使用哪些库的类型
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
