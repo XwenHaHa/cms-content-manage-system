@@ -14,7 +14,6 @@ import { defineComponent, ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import NavBreadCrumb from '../nav-breadcrumb/index.vue'
-import { IBreadcrumb } from '@/layout/nav-breadcrumb/types'
 import { pathMapBreadcrumbs } from '@/utils/map-menus'
 
 export default defineComponent({

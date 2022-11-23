@@ -1,7 +1,7 @@
 import { IConfig } from '@/components/search-area'
 
 export const searchConfig: IConfig = {
-  labelWidth: '120px',
+  labelWidth: '96px',
   configItems: [
     {
       component: 'input',

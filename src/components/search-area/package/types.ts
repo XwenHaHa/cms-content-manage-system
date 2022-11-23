@@ -4,6 +4,8 @@ export interface IConfigItem {
   component: ISearchType
   label: string
   rules?: any[]
+  // 日期组件需要传两个valueName
+  valueName: string | string[]
   // 日期组件需要传两个placeholder
   placeholder: string | string[]
   // 下拉组件options

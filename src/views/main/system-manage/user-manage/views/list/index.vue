@@ -1,13 +1,13 @@
 <template>
   <div class="user">
     <div>
-      <SearchArea v-bind="searchConfig" />
+      <SearchArea v-bind="searchConfig" v-model="formData" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import SearchArea from '@/components/search-area'
 import { searchConfig } from './hooks/use-search'
 
@@ -17,7 +17,15 @@ export default defineComponent({
   },
   name: 'user',
   setup() {
+    const formData = ref({
+      userName: '',
+      password: '',
+      hobby: '',
+      startTime: '',
+      endTime: ''
+    })
     return {
+      formData,
       searchConfig
     }
   }
