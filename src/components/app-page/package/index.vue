@@ -1,9 +1,11 @@
 <template>
   <div class="app-page" style="height: calc(100vh - 112px)">
     <el-container class="page-center-container" direction="vertical">
+      <!-- 渲染固定头部 -->
       <el-header class="page-fixed-header">
         <slot name="fheader"></slot>
       </el-header>
+      <!-- 渲染主区域主要是表格 -->
       <el-main class="page-content">
         <el-main class="page-main">
           <el-header class="page-main-header">
@@ -15,6 +17,7 @@
           </el-footer>
         </el-main>
       </el-main>
+      <!-- 渲染固定底部 -->
       <el-footer class="page-fixed-footer">
         <slot name="ffooter"></slot>
       </el-footer>

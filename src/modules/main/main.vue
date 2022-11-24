@@ -19,8 +19,8 @@
 </template>
 <script lang="tsx">
 import { defineComponent, ref } from 'vue'
-import NavMenu from '@/layout/nav-menu/index.vue'
-import NavHeader from '@/layout/nav-header/index.vue'
+import NavMenu from '@/layouts/nav-menu/index.vue'
+import NavHeader from '@/layouts/nav-header/index.vue'
 
 export default defineComponent({
   name: 'MyMain',

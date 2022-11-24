@@ -1,5 +1,5 @@
 const dashboard = () =>
-  import('@/views/main/system-overview/goods-statistics/index.vue')
+  import('@/modules/main/system-overview/goods-statistics/index.vue')
 export default {
   path: '/main/analysis/dashboard',
   name: 'goods',

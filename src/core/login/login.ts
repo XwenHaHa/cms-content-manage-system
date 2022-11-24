@@ -1,4 +1,4 @@
-import hjRequest from '../index'
+import http from '../http/index'
 import { IAccount, IDataType, ILoginResult, IUserInfo } from './type'
 
 enum LoginAPI {
@@ -8,20 +8,20 @@ enum LoginAPI {
 }
 
 export function accountLoginRequest(account: IAccount) {
-  return hjRequest.post<IDataType<ILoginResult>>({
+  return http.post<IDataType<ILoginResult>>({
     url: LoginAPI.AccountLogin,
     data: account
   })
 }
 
 export function requestUserInfoById(id: number) {
-  return hjRequest.get<IDataType<IUserInfo>>({
+  return http.get<IDataType<IUserInfo>>({
     url: LoginAPI.LoginUserInfo + id
   })
 }
 
 export function requestUserMenusByRoleId(id: number) {
-  return hjRequest.get<IDataType>({
+  return http.get<IDataType>({
     url: LoginAPI.UserMenus + id + '/menu'
   })
 }

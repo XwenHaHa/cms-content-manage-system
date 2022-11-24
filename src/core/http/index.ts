@@ -1,8 +1,8 @@
-import HJRequest from './request'
-import { API_BASE_URL, TIME_OUT } from './request/config'
+import Request from './Request'
+import { API_BASE_URL, TIME_OUT } from './config'
 import localCache from '@/utils/cache'
 
-const hjRequest = new HJRequest({
+const http = new Request({
   baseURL: API_BASE_URL,
   timeout: TIME_OUT,
   interceptorHooks: {
@@ -26,4 +26,4 @@ const hjRequest = new HJRequest({
   }
 })
 
-export default hjRequest
+export default http

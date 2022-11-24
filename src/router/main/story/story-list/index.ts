@@ -1,4 +1,4 @@
-const list = () => import('@/views/main/story/story-list/index.vue')
+const list = () => import('@/modules/main/story/story-list/index.vue')
 export default {
   path: '/main/story/list',
   name: 'storyList',

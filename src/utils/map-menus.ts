@@ -1,4 +1,4 @@
-import { IBreadcrumb } from '@/layout/nav-breadcrumb/types'
+import { IBreadcrumb } from '@/layouts/nav-breadcrumb/types'
 import { RouteRecordRaw } from 'vue-router'
 
 let firstMenu: any = null

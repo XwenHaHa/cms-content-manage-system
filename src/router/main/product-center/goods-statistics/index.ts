@@ -1,5 +1,5 @@
 const goods = () =>
-  import('@/views/main/product-center/goods-statistics/index.vue')
+  import('@/modules/main/product-center/goods-statistics/index.vue')
 export default {
   path: '/main/product/goods',
   name: 'goodsStatistics',

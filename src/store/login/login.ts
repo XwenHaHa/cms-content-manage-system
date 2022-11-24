@@ -4,9 +4,9 @@ import {
   accountLoginRequest,
   requestUserInfoById,
   requestUserMenusByRoleId
-} from '@/service/login/login'
+} from '@/core/login/login'
 import localCache from '@/utils/cache'
-import { IAccount } from '@/service/login/type'
+import { IAccount } from '@/core/login/type'
 
 import { ILoginState } from './types'
 import { IRootState } from '../types'

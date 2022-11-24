@@ -1,7 +1,7 @@
 <template>
   <app-page class="role-manage">
     <template #fheader>
-      <SearchArea v-bind="searchConfig" v-model="formData" />
+      <SearchArea v-bind="searchConfig" v-model="params" />
     </template>
     <template #header>
       <header-area>
@@ -26,11 +26,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import AppPage from '@/components/app-page'
 import SearchArea from '@/components/search-area'
 import HeaderArea from '@/components/header-area'
 import { searchConfig } from './hooks/use-search'
+import { useList } from '@/hooks/use-list'
+import {
+  IRolePageReq,
+  IRolePageRes
+} from '@/modules/main/system-manage/role-manage/api/type'
+import { getRolePageList } from '@/modules/main/system-manage/role-manage/api'
 
 export default defineComponent({
   components: {
@@ -40,39 +46,37 @@ export default defineComponent({
   },
   name: 'role',
   setup() {
-    const formData = ref({
-      userName: '',
-      password: '',
-      hobby: '',
-      startTime: '',
-      endTime: ''
-    })
-    const tableData = [
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles'
-      }
-    ]
-    return {
-      formData,
+    const {
+      params,
+      tableTotal,
       tableData,
-      searchConfig
+      handleSearch,
+      handleReset,
+      handleSizeChange,
+      handleCurrentChange
+    } = useList<IRolePageRes, IRolePageReq>({
+      request: {
+        api: getRolePageList,
+        params: {
+          offset: 1,
+          size: 10,
+          name: '',
+          intro: '',
+          createAt: []
+        }
+      }
+    })
+    handleSearch()
+    return {
+      params,
+      tableTotal,
+      tableData,
+      searchConfig,
+
+      handleSearch,
+      handleReset,
+      handleSizeChange,
+      handleCurrentChange
     }
   }
 })

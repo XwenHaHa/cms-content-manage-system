@@ -46,7 +46,7 @@
             </el-form-item>
           </el-col>
         </template>
-        <el-col v-bind="colLayout" class="margin-bottom-15 padding-left-20">
+        <el-col v-bind="colLayout">
           <el-button type="primary">查询</el-button>
           <el-button>重置</el-button>
           <el-button

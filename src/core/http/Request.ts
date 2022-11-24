@@ -22,7 +22,7 @@ interface HJData<T> {
   success: boolean
 }
 
-class HJRequest {
+class Request {
   config: AxiosRequestConfig
   instance: AxiosInstance
   interceptorHooks?: InterceptorHooks
@@ -109,4 +109,4 @@ class HJRequest {
   }
 }
 
-export default HJRequest
+export default Request
