@@ -140,5 +140,6 @@ export default defineComponent({
 <style scoped lang="less">
 .search-area {
   padding: 22px 0;
+  padding-right: 12px;
 }
 </style>
