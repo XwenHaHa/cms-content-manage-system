@@ -13,7 +13,15 @@
     <template #main>
       <CustomTable :data="tableData" :columns="tableColumns">
         <template #status="scope">
-          <el-tag>{{ scope.row.enable ? '启用' : '禁用' }}</el-tag>
+          <el-tag :type="scope.row.enable ? '' : 'danger'">{{
+            scope.row.enable ? '启用' : '禁用'
+          }}</el-tag>
+        </template>
+        <template #createAt="scope">
+          {{ $filters.formatTime(scope.row.createAt) }}
+        </template>
+        <template #updateAt="scope">
+          {{ $filters.formatTime(scope.row.updateAt) }}
         </template>
       </CustomTable>
     </template>
@@ -76,8 +84,18 @@ export default defineComponent({
       { prop: 'realname', label: '真实名', minWidth: '100' },
       { prop: 'cellphone', label: '手机号码', minWidth: '120' },
       { prop: 'enable', label: '状态', minWidth: '50', slotName: 'status' },
-      { prop: 'createAt', label: '创建时间', minWidth: '180' },
-      { prop: 'updateAt', label: '更新时间', minWidth: '180' }
+      {
+        prop: 'createAt',
+        label: '创建时间',
+        minWidth: '180',
+        slotName: 'createAt'
+      },
+      {
+        prop: 'updateAt',
+        label: '更新时间',
+        minWidth: '180',
+        slotName: 'updateAt'
+      }
     ]
     return {
       tableColumns,

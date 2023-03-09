@@ -7,6 +7,7 @@ import { ICustomerReq, ICustomerRes } from './type'
 export const getCustomerPageList = (params: ICustomerReq) => {
   return http.post<ICustomerRes>({
     url: '/users/list',
-    data: params
+    data: params,
+    showLoading: true
   })
 }
