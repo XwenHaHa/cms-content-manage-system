@@ -1,3 +1,5 @@
+import { type ThemeName } from '@/hooks/useTheme'
+import CacheKey from '@/constant/cacheKey'
 class localCache {
   setCache(key: string, value: any) {
     window.sessionStorage.setItem(key, JSON.stringify(value))
@@ -17,6 +19,13 @@ class localCache {
 
   clearCache() {
     window.sessionStorage.clear()
+  }
+
+  getActiveThemeName() {
+    return localStorage.getItem(CacheKey.ACTIVE_THEME_NAME) as ThemeName
+  }
+  setActiveThemeName(themeName: ThemeName) {
+    localStorage.setItem(CacheKey.ACTIVE_THEME_NAME, themeName)
   }
 }
 
