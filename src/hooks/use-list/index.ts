@@ -146,6 +146,7 @@ export function useList<T = any, P = any>(config: UseListConfig<T, P>) {
         cloneDeep(baseParams)
       ) as P as UnwrapRef<P>
     } else {
+      console.log(requestParams, 'requestParams')
       params.value = cloneDeep(baseParams ?? requestParams) as UnwrapRef<P>
     }
     return handleSearch()
